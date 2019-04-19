@@ -15,6 +15,14 @@ const RecipieSchema = new Schema({
     type: String,
     require: true
   },
+  description: {
+    type: String,
+    require: true
+  },
+  username: {
+    type: String,
+    require: true
+  },
   createdDate: {
     type: Date,
     default: Date.now
@@ -25,4 +33,4 @@ const RecipieSchema = new Schema({
   }
 });
 
-export default RecipieSchema;
+export default mongoose.model("Recipe", RecipieSchema);

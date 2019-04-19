@@ -11,7 +11,7 @@ import resolvers from "./apollo/resolvers.mjs";
 import ASE from "apollo-server-express";
 import GQLT from "graphql-tools";
 
-import Recipie from "./models/Recipe";
+import Recipe from "./models/Recipe";
 import User from "./models/User";
 
 dotenv.config({ path: "../.env" });
@@ -32,7 +32,7 @@ app.use(
   graphqlExpress({
     schema,
     context: {
-      Recipie,
+      Recipe,
       User
     }
   })
