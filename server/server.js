@@ -1,3 +1,5 @@
+import "babel-polyfill";
+
 import express from "express";
 
 import mongoose from "mongoose";
@@ -5,25 +7,36 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
 //graphQL imports
-import typeDefs from "./apollo/schema.mjs";
-import resolvers from "./apollo/resolvers.mjs";
+import typeDefs from "./apollo/schema.js";
+import resolvers from "./apollo/resolvers.js";
 
-import ASE from "apollo-server-express";
-import GQLT from "graphql-tools";
+import { graphiqlExpress, graphqlExpress } from "apollo-server-express";
+import { makeExecutableSchema } from "graphql-tools";
 
+//Database imports
 import Recipe from "./models/Recipe";
 import User from "./models/User";
 
-dotenv.config({ path: "../.env" });
+//network imports
+import cors from "cors";
 
-const { makeExecutableSchema } = GQLT;
-const { graphiqlExpress, graphqlExpress } = ASE;
+//config imports
+dotenv.config({ path: "../.env" });
+const app = express();
+
+//const { makeExecutableSchema } = GQLT;
+//const { graphiqlExpress, graphqlExpress } = ASE;
 console.log(makeExecutableSchema);
 console.log(graphiqlExpress);
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const app = express();
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
 app.use(
@@ -49,4 +62,4 @@ app.listen(PORT, () => {
   console.log(`sever listening on ${PORT}`);
 });
 
-////
+//

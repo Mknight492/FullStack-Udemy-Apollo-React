@@ -8,7 +8,7 @@ type Recipe{
     description: String!
     instructions: String!
     createdDate: String!
-    Linkes: Int
+    likes: Int
     username: String!
 }
 type User{
