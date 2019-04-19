@@ -4,7 +4,7 @@
   "description": "A starter for React-Apollo-GraphQL projects",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js",
+    "server": "cd server && nodemon  -r esm index.js server.mjs",
     "client": "cd client && npm start",
     "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
   },
@@ -17,6 +17,7 @@
     "concurrently": "^3.5.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
+    "esm": "^3.2.22",
     "express": "^4.16.3",
     "graphql": "^0.13.2",
     "graphql-tools": "^3.0.2",
