@@ -24,11 +24,6 @@ import cors from "cors";
 dotenv.config({ path: "../.env" });
 const app = express();
 
-//const { makeExecutableSchema } = GQLT;
-//const { graphiqlExpress, graphqlExpress } = ASE;
-console.log(makeExecutableSchema);
-console.log(graphiqlExpress);
-
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const corsOptions = {
