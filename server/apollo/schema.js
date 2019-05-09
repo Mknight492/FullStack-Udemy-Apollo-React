@@ -8,7 +8,7 @@ type Recipe{
     description: String!
     instructions: String!
     createdDate: String!
-    Linkes: Int
+    likes: Int
     username: String!
 }
 type User{
@@ -21,9 +21,24 @@ type User{
 
 }
 
+type Token {
+    token: String!
+} 
+
+type Auth{
+    user : User
+    token: String!
+}
+
 type Query{
     getAllRecipies: [Recipe]
+
+    getRecipe(_id: ID!) : Recipe
+
+    getCurrentUser: User
 }
+
+
 
 type Mutation{
     addRecipe(
@@ -32,6 +47,17 @@ type Mutation{
         description: String!,
         instructions: String!,
         username: String!): Recipe
+    
+    signupUser(
+        username: String! @unique
+        password: String!
+        email: String! @unique): Auth
+
+    signinUser(
+        username: String!
+        password: String!  
+    ): Auth
+
 }
 `;
 
