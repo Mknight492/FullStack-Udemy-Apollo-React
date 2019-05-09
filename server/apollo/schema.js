@@ -25,9 +25,20 @@ type Token {
     token: String!
 } 
 
+type Auth{
+    user : User
+    token: String!
+}
+
 type Query{
     getAllRecipies: [Recipe]
+
+    getRecipe(_id: ID!) : Recipe
+
+    getCurrentUser: User
 }
+
+
 
 type Mutation{
     addRecipe(
@@ -36,11 +47,17 @@ type Mutation{
         description: String!,
         instructions: String!,
         username: String!): Recipe
-
+    
     signupUser(
         username: String! @unique
         password: String!
-        email: String! @unique): Token
+        email: String! @unique): Auth
+
+    signinUser(
+        username: String!
+        password: String!  
+    ): Auth
+
 }
 `;
 

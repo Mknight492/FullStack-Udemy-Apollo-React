@@ -9,7 +9,10 @@ import styled from "styled-components";
 //components
 import Error from "../error";
 
-const SignUp = () => {
+//HOC
+import { withRouter } from "react-router-dom";
+
+const SignUp = props => {
   const initalState = {
     username: "",
     email: "",
@@ -36,15 +39,18 @@ const SignUp = () => {
     event.preventDefault();
     const data = await signupUser();
     console.log(data);
+    localStorage.setItem("token", data.signupUser.token);
     setForm({ ...initalState });
+    props.history.push("/");
   };
 
   const validateForm = () => {
-    if (password !== confirmPassword) return false;
-    if (Object.values(form).some(el => el === "")) return false;
-    console.log(Object.values(form).some(el => el == ""));
-    Object.values(form).map(el => console.log(el));
-    return true;
+    if (
+      Object.values(form).some(el => el === "") ||
+      password !== confirmPassword
+    )
+      return false;
+    else return true;
   };
 
   return (
@@ -86,8 +92,7 @@ const SignUp = () => {
                 value={form.confirmPassword}
               />
               <button type="submit" disabled={loading || !validateForm()}>
-                {" "}
-                submit{" "}
+                submit
               </button>
               {error && <Error error={error} />}
             </form>
@@ -98,4 +103,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);

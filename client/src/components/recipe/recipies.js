@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 import { Query } from "react-apollo";
 
-import { GET_ALL_RECIPIES } from "../apollo/queries";
+import { GET_ALL_RECIPIES } from "../../apollo/queries";
 
+import RecipeItem from "./recipeItem";
 class Recipies extends Component {
   render() {
     return (
@@ -12,9 +13,13 @@ class Recipies extends Component {
           if (loading) return <div>Loading..</div>;
           if (error) return <div> error: {error.message}</div>;
           console.log(data);
-          return data.getAllRecipies.map(el => {
-            return <div> {el.name}</div>;
-          });
+          return (
+            <ul>
+              {data.getAllRecipies.map(recipe => (
+                <RecipeItem key={recipe._id} {...recipe} />
+              ))}
+            </ul>
+          );
         }}
       </Query>
     );

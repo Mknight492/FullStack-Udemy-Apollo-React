@@ -6,11 +6,6 @@ export const GET_ALL_RECIPIES = gql`
       _id
       name
       category
-      description
-      instructions
-      username
-      likes
-      username
     }
   }
 `;
